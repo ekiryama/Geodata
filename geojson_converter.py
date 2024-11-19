@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import geojson
+import json
 from shapely import wkt
 from shapely.geometry import mapping
 
@@ -22,7 +22,7 @@ if uploaded_file is not None:
         geometry = wkt.loads(row['Plot WKT'])
         
         # Create a GeoJSON feature with properties and geometry
-        feature = geojson.Feature(
+        feature = json.Feature(
             geometry=mapping(geometry),
             properties={
                 "Sucafina_Plot_ID": row["Sucafina Plot ID"],
@@ -37,16 +37,16 @@ if uploaded_file is not None:
         features.append(feature)
 
     # Create a GeoJSON FeatureCollection
-    feature_collection = geojson.FeatureCollection(features)
+    feature_collection = json.FeatureCollection(features)
 
     # # Save the FeatureCollection to a GeoJSON file
-    # with open('MyOutput.geojson', 'w') as f:
-    #     geojson.dump(feature_collection, f)
+    # with open('MyOutput.json', 'w') as f:
+    #     json.dump(feature_collection, f)
 
     st.download_button(
         label="Download GeoJSON",
-        data= geojson.dumps(feature_collection),
-        file_name="converted_GeoJson.geojson",
+        data= json.dumps(feature_collection),
+        file_name="converted_GeoJson.json",
         mime="application/geo+json"
     )
     # print("GeoJSON file has been created successfully.")
