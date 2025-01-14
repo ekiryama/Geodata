@@ -52,6 +52,7 @@ if uploaded_file is not None:
                 "ProducerName": row["ProducerName"],
                 "Area": row["Area"],
                 "ProducerCountry": row["ProducerCountry"],
+                "ProductionPlace": row["ProductionPlace"],
                 "EUDR compliance": row["EUDR compliance"]
             }
         )
