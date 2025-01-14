@@ -38,22 +38,21 @@ if uploaded_file is not None:
     st.write(df.head())
     features = []
     # Fix WKT polygons
-    df["Plot WKT"] = df["Plot WKT"].apply(fix_wkt)
+    df["Geometry"] = df["Geometry"].apply(fix_wkt)
 
     # Loop through each row in the DataFrame to create GeoJSON features
     for _, row in df.iterrows():
         # Convert the WKT geometry to a shapely object
-        geometry = wkt.loads(row['Plot WKT'])
+        geometry = wkt.loads(row['Geometry'])
         
         # Create a GeoJSON feature with properties and geometry
         feature = geojson.Feature(
             geometry=mapping(geometry),
             properties={
-                "Sucafina_Plot_ID": row["Sucafina Plot ID"],
-                "Plot_area_ha": row["Plot area (ha)"],
-                "Country": row["Country"],
-                "Region": row["Region"],
-                "Recommended compliance": row["Recommended compliance"]
+                "ProducerName": row["ProducerName"],
+                "Area": row["Area"],
+                "ProducerCountry": row["ProducerCountry"],
+                "EUDR compliance": row["EUDR compliance"]
             }
         )
         
