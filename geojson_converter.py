@@ -6,7 +6,7 @@ from shapely.geometry import mapping
 import re
 
 # Display the image on the app
-image='sucafinaLogo.JPG'
+image="sucafinaLogo.JPG"
 st.image(image, caption="Sucafina Logo") 
 
 st.title("Conversion of CSV to GeoJson")
