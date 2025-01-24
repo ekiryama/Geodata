@@ -8,7 +8,7 @@ import re
 # Display the image on the app
 with st.container():
     image="sucafinaLogo.JPG"
-    st.image(image, width=100) 
+    st.image(image, width=200) 
 
 st.title("Conversion of CSV to GeoJson")
 
