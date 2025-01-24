@@ -5,6 +5,10 @@ from shapely import wkt
 from shapely.geometry import mapping
 import re
 
+# Display the image on the app
+image='sucafinaLogo.JPG'
+st.image(image, caption="Sucafina Logo") 
+
 st.title("Conversion of CSV to GeoJson")
 
 st.subheader("Upload the CSV")
@@ -32,45 +36,52 @@ def fix_wkt(wkt):
 
 if uploaded_file is not None:
     df= pd.read_csv(uploaded_file)
+    
+    # Check if all required columns are present
+    required_columns = ["Geometry", "ProducerName", "Area", "ProducerCountry", "EUDR compliance"]
+    missing_columns = [col for col in required_columns if col not in df.columns]
 
-    st.subheader("Data Preview")
-    st.write("Total Number of features: ", df.shape[0])
-    st.write(df.head())
-    features = []
-    # Fix WKT polygons
-    df["Geometry"] = df["Geometry"].apply(fix_wkt)
-
-    # Loop through each row in the DataFrame to create GeoJSON features
-    for _, row in df.iterrows():
-        # Convert the WKT geometry to a shapely object
-        geometry = wkt.loads(row['Geometry'])
-        
-        # Create a GeoJSON feature with properties and geometry
-        feature = geojson.Feature(
-            geometry=mapping(geometry),
-            properties={
-                "ProducerName": row["ProducerName"],
-                "Area": row["Area"],
-                "ProducerCountry": row["ProducerCountry"],
-                "ProductionPlace": row["ProductionPlace"],
-                "EUDR compliance": row["EUDR compliance"]
-            }
+    if missing_columns:
+        st.error(f"The file is not in the correct format, please use the current export from the dashboard with columns labeled: {', '.join(missing_columns)}")
+    else:
+        st.subheader("Data Preview")
+        st.write("Total Number of features: ", df.shape[0])
+        st.write(df.head())
+        features = []
+        # Fix WKT polygons
+        df["Geometry"] = df["Geometry"].apply(fix_wkt)
+    
+        # Loop through each row in the DataFrame to create GeoJSON features
+        for _, row in df.iterrows():
+            # Convert the WKT geometry to a shapely object
+            geometry = wkt.loads(row['Geometry'])
+            
+            # Create a GeoJSON feature with properties and geometry
+            feature = geojson.Feature(
+                geometry=mapping(geometry),
+                properties={
+                    "ProducerName": row["ProducerName"],
+                    "Area": row["Area"],
+                    "ProducerCountry": row["ProducerCountry"],
+                    "ProductionPlace": row["ProductionPlace"],
+                    "EUDR compliance": row["EUDR compliance"]
+                }
+            )
+            
+            # Append the feature to the list of features
+            features.append(feature)
+    
+        # Create a GeoJSON FeatureCollection
+        feature_collection = geojson.FeatureCollection(features)
+    
+        # # Save the FeatureCollection to a GeoJSON file
+        # with open('MyOutput.geojson', 'w') as f:
+        #     geojson.dump(feature_collection, f)
+    
+        st.download_button(
+            label="Download GeoJSON",
+            data= geojson.dumps(feature_collection),
+            file_name="converted_GeoJson.geojson",
+            mime="application/geo+json"
         )
-        
-        # Append the feature to the list of features
-        features.append(feature)
-
-    # Create a GeoJSON FeatureCollection
-    feature_collection = geojson.FeatureCollection(features)
-
-    # # Save the FeatureCollection to a GeoJSON file
-    # with open('MyOutput.geojson', 'w') as f:
-    #     geojson.dump(feature_collection, f)
-
-    st.download_button(
-        label="Download GeoJSON",
-        data= geojson.dumps(feature_collection),
-        file_name="converted_GeoJson.geojson",
-        mime="application/geo+json"
-    )
-    # print("GeoJSON file has been created successfully.")
+        # print("GeoJSON file has been created successfully.")
