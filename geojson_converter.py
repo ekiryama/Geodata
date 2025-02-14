@@ -60,12 +60,12 @@ if uploaded_file is not None:
             # Create a GeoJSON feature with properties and geometry
             feature = geojson.Feature(
                 geometry=mapping(geometry),
-                properties={
-                    "ProducerName": row["ProducerName"],
-                    "Area": row["Area"],
-                    "ProducerCountry": row["ProducerCountry"],
-                    "ProductionPlace": row["ProductionPlace"],
-                    "EUDR compliance": row["EUDR compliance"]
+                properties = {
+                    "ProducerName": str(row.get("ProducerName", "Unknown")),
+                    "Area": float(row.get("Area", 0)),
+                    "ProducerCountry": str(row.get("ProducerCountry", "Unknown")),
+                    "ProductionPlace": str(row.get("ProductionPlace", "Unknown")),
+                    "EUDR compliance": str(row.get("EUDR compliance", "Unknown"))
                 }
             )
             
