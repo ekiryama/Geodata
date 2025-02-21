@@ -77,7 +77,7 @@ if uploaded_file is not None:
             features.append(feature)
             
         # Define the output filename
-        geojson_filename = f"{file_name}.geojson"
+        # geojson_filename = f"{file_name}.geojson"
 
     
         # Create a GeoJSON FeatureCollection
@@ -90,7 +90,7 @@ if uploaded_file is not None:
         st.download_button(
             label="Download GeoJSON",
             data= geojson.dumps(feature_collection),
-            file_name= geojson_filename,
+            file_name= file_name.geojson,
             mime="application/geo+json"
         )
         # print("GeoJSON file has been created successfully.")
