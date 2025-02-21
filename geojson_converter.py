@@ -4,6 +4,7 @@ import geojson
 from shapely import wkt
 from shapely.geometry import mapping
 import re
+import os
 
 # Display the image on the app
 with st.container():
