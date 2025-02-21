@@ -36,6 +36,10 @@ def fix_wkt(wkt):
     return wkt  # Return original WKT if it's not a polygon
 
 if uploaded_file is not None:
+    
+    # Get the file name without extension
+    file_name = os.path.splitext(uploaded_file.name)[0]
+    
     df= pd.read_csv(uploaded_file)
     
     # Check if all required columns are present
@@ -71,6 +75,10 @@ if uploaded_file is not None:
             
             # Append the feature to the list of features
             features.append(feature)
+            
+        # Define the output filename
+        geojson_filename = f"{file_name}.geojson"
+
     
         # Create a GeoJSON FeatureCollection
         feature_collection = geojson.FeatureCollection(features)
@@ -82,7 +90,7 @@ if uploaded_file is not None:
         st.download_button(
             label="Download GeoJSON",
             data= geojson.dumps(feature_collection),
-            file_name="converted_GeoJson.geojson",
+            file_name= geojson_filename,
             mime="application/geo+json"
         )
         # print("GeoJSON file has been created successfully.")
