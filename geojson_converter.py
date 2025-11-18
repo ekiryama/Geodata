@@ -98,7 +98,7 @@ if uploaded_file is not None:
 
 ## ------------------------------  ICE-COT conversion  -------------------------------
 st.subheader("Upload the CSV (ICE-COT)")
-uploaded_file2 = st.file_uploader("Choose a csv file", type="csv")
+uploaded_file2 = st.file_uploader2("Choose a csv file", type="csv")
 
 
 if uploaded_file2 is not None:
