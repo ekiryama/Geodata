@@ -13,7 +13,7 @@ with st.container():
 
 st.title("Conversion of CSV to GeoJson")
 
-st.subheader("Upload the CSV")
+st.subheader("Upload the CSV 'Direct & Indirect supply chains'")
 uploaded_file = st.file_uploader("Choose a csv file", type="csv")
 
 def fix_wkt(wkt):
@@ -95,3 +95,7 @@ if uploaded_file is not None:
             mime="application/geo+json"
         )
         # print("GeoJSON file has been created successfully.")
+
+## ICE-COT conversion-------------------------------
+
+
