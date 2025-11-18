@@ -114,6 +114,7 @@ if uploaded_file2 is not None:
 
     if missing_columns2:
         st.error(f"The file is not in the correct format, please use the current export from the dashboard with columns labeled: {', '.join(missing_columns2)}")
+        st.stop()
     else:
         st.subheader("Data Preview")
         st.write("Total Number of features: ", df2.shape[0])
