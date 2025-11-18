@@ -13,7 +13,7 @@ with st.container():
 
 st.title("Conversion of CSV to GeoJson")
 
-st.subheader("Upload the CSV 'Direct & Indirect supply chains'")
+st.subheader("Upload the CSV (Direct & Indirect supply chains)")
 uploaded_file = st.file_uploader("Choose a csv file", type="csv")
 
 def fix_wkt(wkt):
