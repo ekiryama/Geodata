@@ -98,7 +98,7 @@ if uploaded_file is not None:
 
 ## ------------------------------  ICE-COT conversion  -------------------------------
 st.subheader("Upload the CSV (ICE-COT)")
-uploaded_file2 = st.file_uploader2("Choose a csv file", type="csv")
+uploaded_file2 = st.file_uploader("Choose a csv file", type="csv")
 
 
 if uploaded_file2 is not None:
@@ -152,9 +152,6 @@ if uploaded_file2 is not None:
         # Create a GeoJSON FeatureCollection
         feature_collection = geojson.FeatureCollection(features)
     
-        # # Save the FeatureCollection to a GeoJSON file
-        # with open('MyOutput.geojson', 'w') as f:
-        #     geojson.dump(feature_collection, f)
     
         st.download_button(
             label="Download GeoJSON",
