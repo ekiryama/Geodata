@@ -67,7 +67,8 @@ if uploaded_file is not None:
                 geometry=mapping(geometry),
                 properties = {
                     "ProducerName": str(row.get("ProducerName", "Unknown")),
-                    "Area": float(row.get("Area", 0)),
+                    #"Area": float(row.get("Area", 0)),
+                    "Area": safe_float(row.get("Area")),
                     "ProducerCountry": str(row.get("ProducerCountry", "Unknown")),
                     "ProductionPlace": str(row.get("ProductionPlace", "Unknown")),
                     "EUDR compliance": str(row.get("EUDR compliance", "Unknown"))
