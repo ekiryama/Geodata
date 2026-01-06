@@ -11,7 +11,7 @@ with st.container():
     image="sucafinaLogo.JPG"
     st.image(image, width=200) 
 
-st.title("Conversion of CSV to GeoJson").
+st.title("Conversion of CSV to GeoJson")
 
 st.subheader("Upload the CSV (Direct & Indirect supply chains)")
 uploaded_file = st.file_uploader("Choose a csv file", type="csv", key="uploader1")
