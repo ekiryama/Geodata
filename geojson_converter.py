@@ -11,7 +11,7 @@ with st.container():
     image="sucafinaLogo.JPG"
     st.image(image, width=200) 
 
-st.title("Conversion of CSV to GeoJson")
+st.title("Conversion of CSV to GeoJson").
 
 st.subheader("Upload the CSV (Direct & Indirect supply chains)")
 uploaded_file = st.file_uploader("Choose a csv file", type="csv", key="uploader1")
@@ -67,8 +67,8 @@ if uploaded_file is not None:
                 geometry=mapping(geometry),
                 properties = {
                     "ProducerName": str(row.get("ProducerName", "Unknown")),
-                    #"Area": float(row.get("Area", 0)),
-                    "Area": safe_float(row.get("Area")),
+                    ##"Area": float(row.get("Area", 0)),
+                    "Area": str(row.get("Area", "Unknown")),
                     "ProducerCountry": str(row.get("ProducerCountry", "Unknown")),
                     "ProductionPlace": str(row.get("ProductionPlace", "Unknown")),
                     "EUDR compliance": str(row.get("EUDR compliance", "Unknown"))
