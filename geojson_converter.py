@@ -14,7 +14,7 @@ with st.container():
 st.title("Conversion of CSV to GeoJson")
 
 st.subheader("Upload the CSV (Direct & Indirect supply chains)")
-uploaded_file = st.file_uploader("Choose a csv file", type=["csv", "utf"], key="uploader1")
+uploaded_file = st.file_uploader("Choose a csv file", type=["csv", "utf"], encoding="utf-8-sig", key="uploader1")
 
 def fix_wkt(wkt):
     # Check if the input is a polygon
