@@ -42,7 +42,9 @@ if uploaded_file is not None:
     file_name = os.path.splitext(uploaded_file.name)[0]
     
     df= pd.read_csv(uploaded_file)
-    
+    # Support interchangeable geometry column names
+    if "Geometry" not in df.columns and "plot_wkt" in df.columns:
+        df.rename(columns={"plot_wkt": "Geometry"}, inplace=True)
     # Check if all required columns are present
     required_columns = ["Geometry", "ProducerName", "Area", "ProducerCountry", "EUDR compliance"]
     missing_columns = [col for col in required_columns if col not in df.columns]
