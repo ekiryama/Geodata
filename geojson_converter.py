@@ -14,7 +14,7 @@ with st.container():
 st.title("Conversion of CSV to GeoJson")
 
 st.subheader("Upload the CSV (Direct & Indirect supply chains)")
-uploaded_file = st.file_uploader("Choose a csv file", type="csv", encoding="utf-8-sig", key="uploader1")
+uploaded_file = st.file_uploader("Choose a csv file", type=["csv","utf"], key="uploader1")
 
 def fix_wkt(wkt):
     # Check if the input is a polygon
@@ -41,7 +41,7 @@ if uploaded_file is not None:
     # Get the file name without extension
     file_name = os.path.splitext(uploaded_file.name)[0]
     
-    df= pd.read_csv(uploaded_file)
+    df= pd.read_csv(uploaded_file, encoding="utf-8-sig")
     # Support interchangeable geometry column names
     if "Geometry" not in df.columns and "plot_wkt" in df.columns:
         df.rename(columns={"plot_wkt": "Geometry"}, inplace=True)
